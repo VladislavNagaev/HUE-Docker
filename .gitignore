@@ -1,0 +1,12 @@
+
+.git/
+
+.cache
+
+.env
+
+.*.swp
+
+data/
+
+*.tar

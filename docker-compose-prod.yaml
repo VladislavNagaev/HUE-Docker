@@ -1,0 +1,37 @@
+---
+version: '3.8'
+
+
+services:
+
+  hue:
+    image: hue-base:4.11.0
+    # build:
+    #   context: .
+    #   dockerfile: base.Dockerfile
+    command: hue
+    hostname: hue
+    container_name: hue
+    networks:
+      main-overlay-network:
+    ports:
+      - target: 8888
+        published: 8888
+        mode: host
+    volumes:
+      - type: bind
+        source: ${APPS_LOGS}/hue
+        target: /tmp/logs
+    environment:
+      SERVICE_PRECONDITION: "hadoop-namenode:9870"
+    env_file: 
+      - ${APPS_ENV}/hue.env
+    entrypoint: ["/bin/bash", "/entrypoint/hue-entrypoint.sh"]
+    restart: always
+
+
+networks:
+  main-overlay-network:
+    external: true
+    driver: overlay
+    attachable: true

@@ -1,0 +1,42 @@
+---
+version: '3.8'
+
+
+services:
+
+  hue:
+    image: hue-base:4.11.0
+    # build:
+    #   context: .
+    #   dockerfile: base.Dockerfile
+    command: hue
+    hostname: hue
+    container_name: hue
+    networks:
+      main-network:
+    ports:
+      - target: 8888
+        published: 8888
+        mode: host
+    volumes:
+      - type: volume
+        source: hue-volume
+        target: /tmp/logs
+    environment:
+      SERVICE_PRECONDITION: "hadoop-namenode:9870"
+    env_file: 
+      - ./hue.env
+    entrypoint: ["/bin/bash", "/entrypoint/hue-entrypoint.sh"]
+    restart: always
+
+
+networks:
+  main-network:
+    name: main-network
+    external: false
+    driver: bridge
+    attachable: false
+
+
+volumes:
+  hue-volume:
