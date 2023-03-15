@@ -2,6 +2,8 @@
 
 ## Quick Start
 
+To run HUE, you first need to run [postgres](https://github.com/VladislavNagaev/Postgres-Docker) and [hadoop](https://github.com/VladislavNagaev/Hadoop-Docker) containers.
+
 Build image:
 ~~~
 make --jobs=$(nproc --all) --file Makefile 
