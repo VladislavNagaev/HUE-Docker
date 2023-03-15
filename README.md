@@ -7,6 +7,16 @@ Build image:
 make --jobs=$(nproc --all) --file Makefile 
 ~~~
 
+Prepare postgres DB:
+~~~
+# multi-line command
+docker cp ./initdb.sql /
+docker exec postgres psql --username=postgres --dbname=postgres -f /initdb.sql
+
+# or one-line command
+cat ./initdb.sql | docker exec -i postgres psql --username=postgres --dbname=postgres
+~~~
+
 Depoyment of containers:
 ~~~
 docker-compose -f docker-compose.yaml up
