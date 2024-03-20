@@ -16,7 +16,7 @@ services:
       main-overlay-network:
     ports:
       - target: 8888
-        published: 8888
+        published: 8890
         mode: host
     volumes:
       - type: bind
